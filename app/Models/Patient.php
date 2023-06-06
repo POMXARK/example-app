@@ -9,5 +9,5 @@ class Patient extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['first_name','last_name','birthdate'];
+    protected $fillable = ['first_name','last_name','birthdate', 'age', 'age_type'];
 }

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('first_name', 50);
             $table->string('last_name', 50);
             $table->date('birthdate');
+            $table->unsignedInteger('age');
+            $table->unsignedInteger('age_type');
             $table->timestamps();
         });
     }

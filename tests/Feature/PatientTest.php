@@ -24,11 +24,34 @@ class PatientTest extends TestCase
         $response = $this->post('/patient/create', [
             'first_name' => 'Markus',
             'last_name'  => 'Cobb',
-            'birthdate'  => '16/11/2002',
+            'birthdate'  => '2023-01-01 00:00:00',
+            'age'        => '20',
+            'age_type'   => '1',
         ]);
 
         $response->assertOk();
         $this->assertCount(1, Patient::all());
+    }
+
+    /** @test */
+    public function a_patients_can_be_added_cache()
+    {
+        $this->withoutExceptionHandling();
+        foreach (range(1,3) as $value) {
+            $response = $this->post('/patient/create', [
+                'first_name' => 'Markus',
+                'last_name'  => 'Cobb',
+                'birthdate'  => '2023-01-01 00:00:00',
+                'age'        => $value,
+                'age_type'   => '1',
+            ]);
+        }
+        $response->assertOk();
+
+        $response = $this->get('/patient/patients');
+        $response->assertOk();
+
+        $this->assertCount(3, $response->json());
     }
 
     /** @test */

@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PatientRequest;
 use App\Models\Patient;
+use App\Services\PatientService;
 
 class PatientController extends Controller
 {
-    public function create()
+    public function create(PatientRequest $request, PatientService $service)
     {
-        $data = request()->validate([
-            'first_name' => 'required',
-            'last_name'  => 'required',
-            'birthdate'  => 'required',
-                                    ]);
-        Patient::create($data);
+        $service->age($request->all());
+    }
+
+    public function getAllPatients(PatientService $service)
+    {
+        return $service->patients();
     }
 }

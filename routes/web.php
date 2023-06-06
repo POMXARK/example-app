@@ -19,3 +19,4 @@ Route::get('/', function () {
 });
 
 Route::post('/patient/create', [PatientController::class, 'create']);
+Route::get('/patient/patients', [PatientController::class, 'getAllPatients']);
