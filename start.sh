@@ -1,7 +1,7 @@
 #!/bin/sh
 
 npm i
-npm run build
+node --max_old_space_size=300 /usr/local/bin/npm run build
 
 service postgresql restart
 sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD '12345678';"
