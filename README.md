@@ -34,3 +34,8 @@ P.S. В лоб пилить логику в контроллере - не инт
 - php artisan optimize
 - chmod -R 777 storage/logs
 - docker-compose up -d --build
+
+### demo-deploy (all in one)
+- sudo rm -r docker
+- docker build -t example-app .
+- docker run -d -p 8000:80 --name example-app example-app
