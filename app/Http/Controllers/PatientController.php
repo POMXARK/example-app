@@ -8,12 +8,19 @@ use App\Services\PatientService;
 
 class PatientController extends Controller
 {
-    public function create(PatientRequest $request, PatientService $service)
+    /**
+     * Записать данные по пациенту
+     *
+     * @param PatientRequest $request
+     * @param PatientService $service
+     * @return Patient|string
+     */
+    public function create(PatientRequest $request, PatientService $service): Patient|string
     {
-        $service->age($request->all());
+        return $service->create($request->all());
     }
 
-    public function getAllPatients(PatientService $service)
+    public function getAllPatients(PatientService $service): array|string
     {
         return $service->patients();
     }

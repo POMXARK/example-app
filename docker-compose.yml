@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+    nginx:
+        image: nginx:stable-alpine
+        container_name: ${APP_NAME}_nginx
+        restart: unless-stopped
+        ports:
+            - "8000:80"
+        links:
+            - app
+        volumes:
+            - ./:/var/www
+            - ./nginx:/etc/nginx/conf.d/
+        depends_on:
+            - app
+            - db
+
+    app:
+        build:
+            args:
+                user: sammy
+                uid: 1000
+            context: .
+            dockerfile: app.Dockerfile
+        container_name: ${APP_NAME}_php
+        command: sh -c "./post_deploy.sh"
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        ports:
+            - "9001:9000"
+            - "6001:6001"
+        env_file:
+            - .env
+
+    db:
+        image: postgres:12.3-alpine
+        container_name: ${APP_NAME}_postgres
+        restart: unless-stopped
+        ports:
+            - "5433:5432"
+        volumes:
+            - ./docker/postgres:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: ${DB_USERNAME}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+            POSTGRES_DB: ${DB_DATABASE}
+            POSTGRES_HOST_AUTH_METHOD: "trust"
+

@@ -1,0 +1,61 @@
+openapi: 3.0.0
+info:
+  title: Test API
+  description: Тестовое задание
+  version: 0.0.1
+
+servers:
+  - url: http://localhost:8000/api
+    description: local server
+#  - url: http://producation.app/chat
+#    description: production server
+
+components:
+  schemas:
+    Patient:
+      type: object
+      properties:
+        first_name:
+          type: string
+          example: Roman
+          description: Имя
+        last_name:
+          type: string
+          example: Bushuev
+          description: Фамилия
+        birthdate:
+          type: string
+          example: 1997-06-25 18:00:00
+          description: День рождения
+
+paths:
+  /patient/create:
+    post:
+      summary: Запись
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+      responses:
+        '201':
+          description: JSON array
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  type: string
+
+  /patient/patients:
+    get:
+      summary: Все пациенты
+      responses:
+        '200':
+          description: JSON array
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  type: string

@@ -18,5 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/patient/create', [PatientController::class, 'create']);
-Route::get('/patient/patients', [PatientController::class, 'getAllPatients']);
+Route::post('api/patient/create', [PatientController::class, 'create']);
+Route::get('api/patient/patients', [PatientController::class, 'getAllPatients']);
+
+Route::get('api/token', function () {
+    return csrf_token();
+});
