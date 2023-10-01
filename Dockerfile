@@ -64,7 +64,7 @@ WORKDIR /var/www/html/public
 RUN npm install
 
 # build app for production with minification
-RUN npm run build-https
+RUN npm run build
 
 #
 CMD ["/usr/local/bin/start"]
