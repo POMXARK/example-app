@@ -1,5 +1,7 @@
 FROM php:8.1-apache
 
+ENV NODE_ENV development
+
 ENV PGHOST localhost
 ENV POSTGRES_DB pgsql
 ENV POSTGRES_USER postgres
@@ -57,5 +59,12 @@ RUN apt-get autoclean
 EXPOSE 80 5432
 
 WORKDIR /var/www/html/public
+
+# install project dependencies
+RUN npm install
+
+# build app for production with minification
+RUN npm run build
+
 #
 CMD ["/usr/local/bin/start"]
