@@ -25,7 +25,7 @@ RUN apt-get update && \
     pecl install apcu && \
     docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
     docker-php-ext-install -j$(nproc) zip opcache intl pdo_pgsql pgsql && \
-    docker-php-ext-enable apcu pdo_pgsql sodium bcmath && \
+    docker-php-ext-enable apcu pdo_pgsql sodium  && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY pg_hba.conf /etc/postgresql/15/main/
