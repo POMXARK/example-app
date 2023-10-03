@@ -5,10 +5,10 @@ info:
   version: 0.0.1
 
 servers:
+  - url: https://example-app-auxb.onrender.com/api
+    description: production server
   - url: http://localhost:8000/api
     description: local server
-#  - url: http://producation.app/chat
-#    description: production server
 
 components:
   schemas:
